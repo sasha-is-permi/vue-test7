@@ -40,8 +40,10 @@
                                 <span class="input-group-text" id=search>
                                     <img src="../assets/icon-search.svg"/>
                                 </span>
-                                <input id="search" type="text" name="search" placeholder="Документы для сборщиков" class="form-control">
-                                <span class="input-group-text" id="close">
+                                <input v-model="doc" id="search" type="text" name="search" placeholder="Документы для сборщиков" class="form-control">
+                                <!-- Показываем крестик только если что-то введено кроме пробелов
+                                  При клике на крестик поле ввода очищается -->
+                                <span v-show="doc.trim() !== ''"   @click="doc=''" class="input-group-text" id="close">
                                     <img src="../assets/icon-close.svg"/>
                                 </span>
                             </div>
@@ -57,6 +59,19 @@
 
 </div>
 </template>
+
+
+<script>
+   export default{
+     data(){
+         return{
+             doc:""
+         }
+     }
+   }
+</script>
+
+
    
 
 <style scoped>
