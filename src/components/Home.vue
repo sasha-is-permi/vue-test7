@@ -77,9 +77,9 @@
                                     </div>
                                     <div class="accordion-block-icon">
                                         <div class="accordion-icon-manager">
-                                            <img src="../assets/icon-edit.svg"/>
+                                            <img src="../assets/icon-edit.svg" @click="editCategory(category)" />
                                         </div>
-                                        <div class="accordion-icon-manager">
+                                        <div class="accordion-icon-manager" @click="deleteCategory(category.id)">
                                             <img src="../assets/icon-delete.svg"/>
                                         </div>
                                         <div class="accordion-icon-manager">
@@ -90,7 +90,7 @@
                                 </div>
 
                             </label>
-                            <div class="accordion-item-content" v-for="document in documents1"  v-show="document.categoryId==category.id" :key="document.key">
+                            <div class="accordion-item-content" v-for="document in documents1"  v-show="document.categoryId==category.id" :key="document.id">
                                 <div class="accordion-item-block"  v-if="document.categoryId==category.id">
                                     <div class="accordion-item-block-text">
                                         <div class="accordion-item-h">
@@ -108,9 +108,9 @@
                                     </div>
                                     <div class="accordion-block-icon">
                                         <div class="accordion-icon-manager">
-                                            <img src="../assets/icon-edit.svg"/>
+                                            <img src="../assets/icon-edit.svg" @click="editDocument(document.id)" />
                                         </div>
-                                        <div class="accordion-icon-manager">
+                                        <div class="accordion-icon-manager" @click="deleteDocument(document.id)">
                                             <img src="../assets/icon-delete.svg"/>
                                         </div>
                                         <div class="accordion-icon-manager">
@@ -133,6 +133,41 @@
         </div>
     </section>
 
+<div v-if="editCategoryVisible">
+
+
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Редактирование категории</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+
+            <label for="name" class="col-form-label">Имя</label>
+            <input type="text" class="form-control" id="name" v-model="selectedCategory.name" >
+          </div>
+ 
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closeSelectedCategory">Закрыть</button>
+        <button type="button" class="btn btn-primary">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+<div v-if="editDocumentVisible">
+
+<h1> Проверка2 </h1>
+
+</div>
 
 
 </div>
@@ -158,8 +193,11 @@
              {id:4,name:"Тестовое задание кандидата",categoryId:0,used:false},
              {id:5,name:"Трудовой договор",categoryId:0,used:true},
              {id:6,name:"Медицинская книжка",categoryId:0,used:false}           
-             ]
-
+             ],
+             editCategoryVisible:false,
+             editDocumentVisible:false,
+             selectedCategoty:{},
+             selectedDocument:{}
          }
      },
                 
@@ -173,8 +211,36 @@
 
                  
                     return documents2;
+            },
+            closeSelectedCategory(){
+                this.editCategoryVisible=false;
+                this.selectedCategory={}; 
+                console.log("this.selectedCategory",this.selectedCategory)
             }
+            },
+            methods: {
+               deleteDocument(documentId){
+              const index = this.documents.findIndex(a => a.id === documentId);
+              this.documents.splice(index, 1);
+              },
+
+            deleteCategory(categoryId){
+               const index = this.categoryes.findIndex(a => a.id === categoryId);
+              this.categoryes.splice(index, 1);
+            },
+            editDocument(documentID){
+                 this.editDocumentVisible=true;
+                 this.selectedDocument=document;
+            },
+            editCategory(category){
+                console.log("category",category)
+                this.editCategoryVisible=true;
+                this.selectedCategory=category;
             }
+
+
+
+                        }
                 
    }
 </script>
