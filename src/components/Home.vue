@@ -191,6 +191,75 @@
 
 </div>
 
+
+<div v-if="createCategoryVisible">
+
+  <div class="modalDialog">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Редактирование категории</h5>
+        <button type="button" class="btn-close"  aria-label="Закрыть" @click="closeCreatedCategory()" ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+
+            <label for="name" class="col-form-label">Имя</label>
+            <input type="text" class="form-control" id="name" v-model="newCategory.name" >
+          </div>
+ 
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  @click="closeCreatedCategory()">Закрыть</button>
+        <button type="button" class="btn btn-primary" @click="saveCreatedCategory()" >Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div v-if="createDocumentVisible">
+
+  <div class="modalDialog">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Редактирование документа</h5>
+        <button type="button" class="btn-close"  aria-label="Закрыть" @click="closeCreatedDocument()" ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+
+            <label for="name" class="col-form-label">Имя</label>
+            <input type="text" class="form-control" id="name" v-model="newDocument.name" >
+          </div>
+          
+         <div class="mb-3">
+            <p> Категория: остальные</p>            
+         </div>
+
+
+
+ 
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  @click="closeCreatedDocument()">Закрыть</button>
+        <button type="button" class="btn btn-primary" @click="saveCreatedDocument()" >Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+
+
 </div>
 </template>
 
@@ -219,10 +288,10 @@
              editDocumentVisible:false,
              selectedCategory:{},
              selectedDocument:{},
-             createDocumentVisible:false,
+             createCategoryVisible:false,
              createDocumentVisible:false,
              newCategory:{id:0, name:"", requied:false, description:"",comment:"" },
-             newDocument:{id:0, name:"", requied:false, description:"",comment:"" }
+             newDocument: {id:0,name:"",categoryId:0,used:false}
          }
      },
                 
