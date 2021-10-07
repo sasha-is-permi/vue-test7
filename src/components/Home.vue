@@ -108,7 +108,7 @@
                                     </div>
                                     <div class="accordion-block-icon">
                                         <div class="accordion-icon-manager">
-                                            <img src="../assets/icon-edit.svg" @click="editDocument(document.id)" />
+                                            <img src="../assets/icon-edit.svg" @click="editDocument(document)" />
                                         </div>
                                         <div class="accordion-icon-manager" @click="deleteDocument(document.id)">
                                             <img src="../assets/icon-delete.svg"/>
@@ -135,12 +135,12 @@
 
 <div v-if="editCategoryVisible">
 
-
+  <div class="modalDialog">
   <div class="modal-dialog modal-dialog-centered ">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Редактирование категории</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        <button type="button" class="btn-close"  aria-label="Закрыть" @click="closeSelectedCategory()" ></button>
       </div>
       <div class="modal-body">
         <form>
@@ -153,22 +153,43 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closeSelectedCategory">Закрыть</button>
-        <button type="button" class="btn btn-primary">Сохранить</button>
+        <button type="button" class="btn btn-secondary"  @click="closeSelectedCategory()">Закрыть</button>
+        <button type="button" class="btn btn-primary" @click="saveCategory()" >Сохранить</button>
       </div>
     </div>
   </div>
-
-
 </div>
 
+</div>
 
 <div v-if="editDocumentVisible">
 
-<h1> Проверка2 </h1>
+  <div class="modalDialog">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Редактирование документа</h5>
+        <button type="button" class="btn-close"  aria-label="Закрыть" @click="closeSelectedDocument()" ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
 
+            <label for="name" class="col-form-label">Имя</label>
+            <input type="text" class="form-control" id="name" v-model="selectedDocument.name" >
+          </div>
+ 
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  @click="closeSelectedDocument()">Закрыть</button>
+        <button type="button" class="btn btn-primary" @click="saveDocument()" >Сохранить</button>
+      </div>
+    </div>
+  </div>
 </div>
 
+</div>
 
 </div>
 </template>
@@ -196,7 +217,7 @@
              ],
              editCategoryVisible:false,
              editDocumentVisible:false,
-             selectedCategoty:{},
+             selectedCategory:{},
              selectedDocument:{}
          }
      },
@@ -211,11 +232,6 @@
 
                  
                     return documents2;
-            },
-            closeSelectedCategory(){
-                this.editCategoryVisible=false;
-                this.selectedCategory={}; 
-                console.log("this.selectedCategory",this.selectedCategory)
             }
             },
             methods: {
@@ -228,16 +244,57 @@
                const index = this.categoryes.findIndex(a => a.id === categoryId);
               this.categoryes.splice(index, 1);
             },
-            editDocument(documentID){
-                 this.editDocumentVisible=true;
-                 this.selectedDocument=document;
+            editDocument(document){
+                console.log("category",document)
+                this.editDocumentVisible=true;
+                this.selectedDocument= JSON.parse(JSON.stringify(document));
+                 console.log("this.selectedDocument*",this.selectedDocument)
             },
             editCategory(category){
                 console.log("category",category)
                 this.editCategoryVisible=true;
-                this.selectedCategory=category;
-            }
+                this.selectedCategory= JSON.parse(JSON.stringify(category));
+                 console.log("this.selectedCategory*",this.selectedCategory)
+            },
 
+            closeSelectedCategory(){
+                this.editCategoryVisible=false;
+                this.selectedCategory={}; 
+                console.log("this.selectedCategoryClose",this.selectedCategory)
+            },
+             closeSelectedDocument(){
+                this.editDocumentVisible=false;
+                this.selectedDocument={}; 
+                console.log("this.selectedDocumentClose",this.selectedDocument)
+            },
+               saveCategory(){
+               
+                const category = JSON.parse(JSON.stringify(this.selectedCategory)); 
+                const categoryId= category.id;
+                const index = this.categoryes.findIndex(a => a.id === categoryId);
+                this.categoryes[index].name= category.name;
+                
+                              
+                console.log("this.selectedCategory",this.selectedCategory) 
+                console.log("this.category",this.category)
+                 this.editCategoryVisible=false;
+                 this.selectedCategory={}; 
+                 
+            }, 
+            saveDocument(){
+               
+                const document = JSON.parse(JSON.stringify(this.selectedDocument)); 
+                const documentId= document.id;
+                const index = this.documents.findIndex(a => a.id === documentId);
+                this.documents[index].name= document.name;
+                
+                              
+                console.log("this.selectedDocument",this.selectedDocument) 
+                console.log("this.document",this.document)
+                 this.editDocumentVisible=false;
+                 this.selectedDocument={}; 
+                 
+            }
 
 
                         }
@@ -249,6 +306,13 @@
    
 
 <style scoped>
+
+.modalDialog{
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
 
 .content-doc {
     
