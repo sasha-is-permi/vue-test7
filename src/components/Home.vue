@@ -13,15 +13,15 @@
                         <div class="cont-bookmark paragraph-indent" id="bookmark">
                             <img src="../assets/bookmark.svg"/>
                         </div>
-                        <div class="cont-new-type paragraph-indent" id="new-type">
+                        <div class="cont-new-type paragraph-indent" id="new-type" @click="createCategory()" >
                             <div class="new-type-icon plus">
                                 <img src="../assets/icon-plus.svg"/>
                             </div>
-                            <div class="new-type-text">
+                            <div class="new-type-text"  >
                                 <p>Новый тип</p>
                             </div>
                         </div>
-                        <div class="cont-new-doc paragraph-indent" id="new-doc">
+                        <div class="cont-new-doc paragraph-indent" id="new-doc" @click="createDocument()"  >
                             <div class="new-doc-icon plus">
                                 <img src="../assets/icon-plus.svg"/>
                             </div>
@@ -218,7 +218,11 @@
              editCategoryVisible:false,
              editDocumentVisible:false,
              selectedCategory:{},
-             selectedDocument:{}
+             selectedDocument:{},
+             createDocumentVisible:false,
+             createDocumentVisible:false,
+             newCategory:{id:0, name:"", requied:false, description:"",comment:"" },
+             newDocument:{id:0, name:"", requied:false, description:"",comment:"" }
          }
      },
                 
@@ -257,6 +261,31 @@
                  console.log("this.selectedCategory*",this.selectedCategory)
             },
 
+            createDocument(){
+
+                 const index = this.documents.length 
+
+                 this.newDocument.id = index
+                 this.newDocument.name=""
+                 this.newDocument.requied=false
+                 this.newDocument.description=""
+                 this.newDocument.comment="",
+                 this.createDocumentVisible=true;
+            },
+            createCategory(){
+                
+                 const index = this.categoryes.length 
+
+                 this.newCategory.id=index
+                 this.newCategory.name=""
+                 this.newCategory.requied=false
+                 this.newCategory.description=""
+                 this.newCategory.comment="",
+                 this.createCategoryVisible=true;
+            },
+
+
+
             closeSelectedCategory(){
                 this.editCategoryVisible=false;
                 this.selectedCategory={}; 
@@ -267,6 +296,24 @@
                 this.selectedDocument={}; 
                 console.log("this.selectedDocumentClose",this.selectedDocument)
             },
+            closeCreatedDocument(){
+                 this.newDocument.id=0
+                 this.newDocument.name=""
+                 this.newDocument.requied=false
+                 this.newDocument.description=""
+                 this.newDocument.comment="",
+                 this.createDocumentVisible=false;
+            },
+            closeCreatedcategory(){
+                 this.newCategory.id=0
+                 this.newCategory.name=""
+                 this.newCategory.requied=false
+                 this.newCategory.description=""
+                 this.newCategory.comment="",
+                 this.createCategoryVisible=false;
+            },
+
+
                saveCategory(){
                
                 const category = JSON.parse(JSON.stringify(this.selectedCategory)); 
@@ -281,6 +328,25 @@
                  this.selectedCategory={}; 
                  
             }, 
+
+               saveCreatedCategory(){
+               
+                const category = JSON.parse(JSON.stringify(this.newCategory)); 
+                this.categoryes.push(category);
+                
+                              
+                console.log("this.newCategory",this.newCategory) 
+                console.log("this.categoryes",this.categoryes)
+
+                 this.newCategory.id=0
+                 this.newCategory.name=""
+                 this.newCategory.requied=false
+                 this.newCategory.description=""
+                 this.newCategory.comment="",
+                 this.createCategoryVisible=false;
+                 
+            }, 
+
             saveDocument(){
                
                 const document = JSON.parse(JSON.stringify(this.selectedDocument)); 
@@ -294,7 +360,26 @@
                  this.editDocumentVisible=false;
                  this.selectedDocument={}; 
                  
-            }
+            },
+
+            
+               saveCreatedDocument(){
+               
+                const document = JSON.parse(JSON.stringify(this.newDocument)); 
+                this.documents.push(document);
+                
+                              
+                console.log("this.newDocument",this.newDocument) 
+                console.log("this.documents",this.documents)
+                
+                 this.newDocument.id=0
+                 this.newDocument.name=""
+                 this.newDocument.requied=false
+                 this.newDocument.description=""
+                 this.newDocument.comment="",
+                 this.createDocumentVisible=false;
+                 
+            }, 
 
 
                         }
