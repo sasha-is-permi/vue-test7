@@ -57,7 +57,7 @@
             <div class="row">
                 <div class="col-5">
                     <div class="accordion">
-                        <div class="accordion-item" v-for="category in categoryesSort" :key="category.id">
+                        <div class="accordion-item" v-for="category in categoryes" :key="category.id">
                             <input class="accordion-item-input" type="checkbox" :id="'accordion-'+category.id"/>
                             <label class="accordion-item-triger" :for="'accordion-'+category.id">
                                 <div class="accordion-block">
@@ -82,8 +82,8 @@
                                         <div class="accordion-icon-manager" @click="deleteCategory(category.id)">
                                             <img src="../assets/icon-delete.svg"/>
                                         </div>
-                                        <div class="accordion-icon-manager">
-                                            <img src="../assets/icon-reverse-down.svg"  @click="reverseCategoryDown(category)"/>
+                                        <div class="accordion-icon-manager"  @click="reverseCategoryDown(category)">
+                                            <img src="../assets/icon-reverse-down.svg" />
                                         </div>
                                         <div class="accordion-icon-manager" @click="reverseCategoryUp(category)" >
                                             <img src="../assets/icon-reverse-up.svg"/>
@@ -310,16 +310,6 @@
                     return documents2;
             }
 
-            ,
-            categoryesSort() {
-              return this.categoryes.filter(function (item) {
-              return item
-              })
-            }
-
-
-
-
             },
             methods: {
                deleteDocument(documentId){
@@ -464,21 +454,39 @@
                  
             }, 
 
+           
                reverseCategoryUp(category){
                  const category2= JSON.parse(JSON.stringify(category));
                  const categoryId= category2.id;
                  const index = this.categoryes.findIndex(a => a.id === categoryId);
                  if (index >=1){
                  const temp1 = this.categoryes[index-1];
-                 this.categoryes[index-1] = this.categoryes[index];
-                 this.categoryes[index] = temp1;
+                 const temp2 = this.categoryes[index];
+                 this.categoryes.splice(index-1,2,temp2,temp1)
+               
                  }      
                  console.log("index",index)   
                  console.log("this.categoryes",this.categoryes)        
-            }, 
+            },   
 
+               reverseCategoryDown(category){
+   
+                 const category2= JSON.parse(JSON.stringify(category));
 
-
+                 const categoryId= category2.id;
+                 const index = this.categoryes.findIndex(a => a.id === categoryId);
+                 const len = this.categoryes.length-2
+                   
+                 if (index <= len){
+                                      
+                 const temp1 = this.categoryes[index];
+                 const temp2 = this.categoryes[index+1];
+                 this.categoryes.splice(index,2,temp2,temp1)
+               
+                 }      
+                 console.log("index",index)   
+                 console.log("this.categoryes",this.categoryes)        
+            },   
 
                         }
                 
