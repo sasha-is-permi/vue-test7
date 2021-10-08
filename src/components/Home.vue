@@ -488,6 +488,39 @@
                  console.log("this.categoryes",this.categoryes)        
             },   
 
+                 reverseDocumentUp(document){
+                 const document2= JSON.parse(JSON.stringify(document));
+                 const documentId= document2.id;
+                 const index = this.documents.findIndex(a => a.id === documentId);
+                 if (index >=1){
+                 const temp1 = this.documents[index-1];
+                 const temp2 = this.documents[index];
+                 this.documents.splice(index-1,2,temp2,temp1)
+               
+                 }      
+                 console.log("index",index)   
+                 console.log("this.documents",this.documents)        
+            },   
+
+               reverseDocumentDown(document){
+   
+                 const document2= JSON.parse(JSON.stringify(document));
+
+                 const documentId= document2.id;
+                 const index = this.documents.findIndex(a => a.id === documentId);
+                 const len = this.documents.length-2
+                   
+                 if (index <= len){
+                                      
+                 const temp1 = this.documents[index];
+                 const temp2 = this.documents[index+1];
+                 this.documents.splice(index,2,temp2,temp1)
+               
+                 }      
+                 console.log("index",index)   
+                 console.log("this.documents",this.documents)        
+            },   
+
                         }
                 
    }
