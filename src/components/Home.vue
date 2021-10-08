@@ -57,7 +57,7 @@
             <div class="row">
                 <div class="col-5">
                     <div class="accordion">
-                        <div class="accordion-item" v-for="category in categoryes" :key="category.id">
+                        <div class="accordion-item" v-for="category in categoryesSort" :key="category.id">
                             <input class="accordion-item-input" type="checkbox" :id="'accordion-'+category.id"/>
                             <label class="accordion-item-triger" :for="'accordion-'+category.id">
                                 <div class="accordion-block">
@@ -309,6 +309,17 @@
                  
                     return documents2;
             }
+
+            ,
+            categoryesSort() {
+              return this.categoryes.filter(function (item) {
+              return item
+              })
+            }
+
+
+
+
             },
             methods: {
                deleteDocument(documentId){
@@ -687,12 +698,3 @@
 
 </style>
 
-
-
-
-  
-
-               
-
-                
-            
