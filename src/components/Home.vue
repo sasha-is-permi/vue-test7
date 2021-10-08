@@ -243,11 +243,17 @@
             <label for="name" class="col-form-label">Имя</label>
             <input type="text" class="form-control" id="name" v-model="newDocument.name" >
           </div>
+
+           <div class="mb-3">
+            <p>Название категории:</p>
+                  
+           <select v-model="this.selectedCategory">
+                  <option v-for="(category,index) in categoryes" :value="category.name" :key="index">{{category.name}}</option>
+           </select>
+         
+            </div>
           
-         <div class="mb-3">
-            <p> Категория: остальные</p>            
-         </div>
- 
+         
         </form>
       </div>
       <div class="modal-footer">
@@ -340,10 +346,11 @@
 
                  this.newDocument.id = index
                  this.newDocument.name=""
-                 this.newDocument.requied=false
-                 this.newDocument.description=""
-                 this.newDocument.comment="",
+                 this.newDocument.used=true
+                 this.newDocument.categoryId=0;
                  this.createDocumentVisible=true;
+
+
             },
             createCategory(){
                 
@@ -370,11 +377,10 @@
                 console.log("this.selectedDocumentClose",this.selectedDocument)
             },
             closeCreatedDocument(){
-                 this.newDocument.id=0
+                 this.newDocument.id = 0
                  this.newDocument.name=""
-                 this.newDocument.requied=false
-                 this.newDocument.description=""
-                 this.newDocument.comment="",
+                 this.newDocument.used=false
+                 this.newDocument.categoryId=0;
                  this.createDocumentVisible=false;
             },
             closeCreatedCategory(){
@@ -438,20 +444,27 @@
             
                saveCreatedDocument(){
                
-                const document = JSON.parse(JSON.stringify(this.newDocument)); 
+                let document = JSON.parse(JSON.stringify(this.newDocument)); 
+                 console.log("this.selectedCategory",this.selectedCategory);
+         //        console.log("this.document.categoryId",this.document.categoryId);
+             //    this.document.categoryId=2;
+                
                 this.documents.push(document);
                 
                               
                 console.log("this.newDocument",this.newDocument) 
                 console.log("this.documents",this.documents)
                 
-                 this.newDocument.id=0
+
+                 this.newDocument.id = 0
                  this.newDocument.name=""
-                 this.newDocument.requied=false
-                 this.newDocument.description=""
-                 this.newDocument.comment="",
+                 this.newDocument.used=false
+                 this.newDocument.categoryId=0;
                  this.createDocumentVisible=false;
+
+        
                  
+         
             }, 
 
            
