@@ -204,7 +204,7 @@
   <div class="modal-dialog modal-dialog-centered ">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Редактирование категории</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Создание категории</h5>
         <button type="button" class="btn-close"  aria-label="Закрыть" @click="closeCreatedCategory()" ></button>
       </div>
       <div class="modal-body">
@@ -233,7 +233,7 @@
   <div class="modal-dialog modal-dialog-centered ">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Редактирование документа</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Создание документа</h5>
         <button type="button" class="btn-close"  aria-label="Закрыть" @click="closeCreatedDocument()" ></button>
       </div>
       <div class="modal-body">
@@ -377,7 +377,7 @@
                  this.newDocument.comment="",
                  this.createDocumentVisible=false;
             },
-            closeCreatedcategory(){
+            closeCreatedCategory(){
                  this.newCategory.id=0
                  this.newCategory.name=""
                  this.newCategory.requied=false
