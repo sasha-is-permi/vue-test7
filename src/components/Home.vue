@@ -247,8 +247,8 @@
            <div class="mb-3">
             <p>Название категории:</p>
                   
-           <select v-model="this.selectedCategory">
-                  <option v-for="(category,index) in categoryes" :value="category.name" :key="index">{{category.name}}</option>
+           <select v-model="selectedCategoryForDocument">
+                  <option v-for="(category,index) in categoryes" :value="category" :key="index">{{category.name}}</option>
            </select>
          
             </div>
@@ -296,6 +296,7 @@
              editCategoryVisible:false,
              editDocumentVisible:false,
              selectedCategory:{},
+             selectedCategoryForDocument: {id:0, name:"", requied:false, description:"",comment:"" },
              selectedDocument:{},
              createCategoryVisible:false,
              createDocumentVisible:false,
@@ -444,13 +445,14 @@
             
                saveCreatedDocument(){
                
-                let document = JSON.parse(JSON.stringify(this.newDocument)); 
-                 console.log("this.selectedCategory",this.selectedCategory);
-         //        console.log("this.document.categoryId",this.document.categoryId);
-             //    this.document.categoryId=2;
-                
-                this.documents.push(document);
-                
+                let document = JSON.parse(JSON.stringify(this.newDocument));              
+                 console.log("this.selectedCategoryForDocument",this.selectedCategoryForDocument);
+                 console.log("document",document);
+
+                 
+                 document.categoryId=this.selectedCategoryForDocument.id;
+
+                 this.documents.push(document)               
                               
                 console.log("this.newDocument",this.newDocument) 
                 console.log("this.documents",this.documents)
@@ -461,9 +463,6 @@
                  this.newDocument.used=false
                  this.newDocument.categoryId=0;
                  this.createDocumentVisible=false;
-
-        
-                 
          
             }, 
 
