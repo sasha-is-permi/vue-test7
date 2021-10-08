@@ -83,7 +83,10 @@
                                             <img src="../assets/icon-delete.svg"/>
                                         </div>
                                         <div class="accordion-icon-manager">
-                                            <img src="../assets/icon-reverse.svg"/>
+                                            <img src="../assets/icon-reverse-down.svg"  @click="reverseCategoryDown(category)"/>
+                                        </div>
+                                        <div class="accordion-icon-manager" @click="reverseCategoryUp(category)" >
+                                            <img src="../assets/icon-reverse-up.svg"/>
                                         </div>
                                     </div>
 
@@ -113,8 +116,11 @@
                                         <div class="accordion-icon-manager" @click="deleteDocument(document.id)">
                                             <img src="../assets/icon-delete.svg"/>
                                         </div>
-                                        <div class="accordion-icon-manager">
-                                            <img src="../assets/icon-reverse.svg"/>
+                                         <div class="accordion-icon-manager"  @click="reverseDocumentDown(document)" >
+                                            <img src="../assets/icon-reverse-down.svg"  />
+                                        </div>
+                                        <div class="accordion-icon-manager" @click="reverseDocumentUp(document)">
+                                            <img src="../assets/icon-reverse-up.svg"/>
                                         </div>
                                     </div>
                                 </div>       
@@ -241,9 +247,6 @@
          <div class="mb-3">
             <p> Категория: остальные</p>            
          </div>
-
-
-
  
         </form>
       </div>
@@ -449,6 +452,21 @@
                  this.createDocumentVisible=false;
                  
             }, 
+
+               reverseCategoryUp(category){
+                 const category2= JSON.parse(JSON.stringify(category));
+                 const categoryId= category2.id;
+                 const index = this.categoryes.findIndex(a => a.id === categoryId);
+                 if (index >=1){
+                 const temp1 = this.categoryes[index-1];
+                 this.categoryes[index-1] = this.categoryes[index];
+                 this.categoryes[index] = temp1;
+                 }      
+                 console.log("index",index)   
+                 console.log("this.categoryes",this.categoryes)        
+            }, 
+
+
 
 
                         }
